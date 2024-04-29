@@ -169,6 +169,18 @@ def main(argv=None, input=None, output=None, force_git_root=None):
         env_var="ANTHROPIC_API_KEY",
         help="Specify the OpenAI API key",
     )
+    core_group.add_argument(
+        "--gemini-api-key",
+        metavar="GEMINI_API_KEY",
+        env_var="GEMINI_API_KEY",
+        help="Specify the Gemini API key",
+    )
+    core_group.add_argument(
+        "--cohere-api-key",
+        metavar="COHERE_API_KEY",
+        env_var="COHERE_API_KEY",
+        help="Specify the Cohere API"
+    )
     default_model = models.DEFAULT_MODEL_NAME
     core_group.add_argument(
         "--model",
@@ -594,6 +606,10 @@ def main(argv=None, input=None, output=None, force_git_root=None):
             text = text.replace(args.openai_api_key, "***")
         if text and args.anthropic_api_key:
             text = text.replace(args.anthropic_api_key, "***")
+        if text and args.gemini_api_key:
+            text = text.replace(args.gemini_api_key, "***")
+        if text and args.cohere_api_key:
+            text = text.replace(args.cohere_api_key, "***")
         return text
 
     if args.verbose:
@@ -614,6 +630,10 @@ def main(argv=None, input=None, output=None, force_git_root=None):
         os.environ["OPENAI_API_KEY"] = args.openai_api_key
     if args.openai_api_base:
         os.environ["OPENAI_API_BASE"] = args.openai_api_base
+    if args.gemini_api_key:
+        os.environ["GEMINI_API_KEY"] = args.gemini_api_key
+    if args.cohere_api_key:
+        os.environ["COHERE_API_KEY"] = args.cohere_api_key
     if args.openai_api_version:
         os.environ["OPENAI_API_VERSION"] = args.openai_api_version
     if args.openai_api_type:
