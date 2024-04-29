@@ -179,7 +179,31 @@ def main(argv=None, input=None, output=None, force_git_root=None):
         "--cohere-api-key",
         metavar="COHERE_API_KEY",
         env_var="COHERE_API_KEY",
-        help="Specify the Cohere API"
+        help="Specify the Cohere API Key"
+    )
+    core_group.add_argument(
+        "--groq-api-key",
+        metavar="GROQ_API_KEY",
+        env_var="GROQ_API_KEY",
+        help="Specify the Groq API Key"
+    )
+    core_group.add_argument(
+        "--azure-api-key",
+        metavar="AZURE_API_KEY",
+        env_var="AZURE_API_KEY",
+        help="Specify the Azure API Key"
+    )
+    core_group.add_argument(
+        "--azure-api-version",
+        metavar="AZURE_API_VERSION",
+        env_var="AZURE_API_VERSION",
+        help="Specify the Azure API Version"
+    )
+    core_group.add_argument(
+        "--azure-api-base",
+        metavar="AZURE_API_BASE",
+        env_var="AZURE_API_BASE",
+        help="Specify the Azure API Base"
     )
     default_model = models.DEFAULT_MODEL_NAME
     core_group.add_argument(
@@ -610,6 +634,10 @@ def main(argv=None, input=None, output=None, force_git_root=None):
             text = text.replace(args.gemini_api_key, "***")
         if text and args.cohere_api_key:
             text = text.replace(args.cohere_api_key, "***")
+        if text and args.groq_api_key:
+            text = text.replace(args.groq_api_key, "***")
+        if text and args.azure-api-key:
+            text = text.replace(args.azure-api-key, "***")
         return text
 
     if args.verbose:
@@ -634,6 +662,14 @@ def main(argv=None, input=None, output=None, force_git_root=None):
         os.environ["GEMINI_API_KEY"] = args.gemini_api_key
     if args.cohere_api_key:
         os.environ["COHERE_API_KEY"] = args.cohere_api_key
+    if args.groq_api_key:
+        os.environ["GROQ_API_KEY"] = args.groq_api_key
+    if args.azure_api_key:
+        os.environ["AZURE_API_KEY"] = args.azure_api_key
+    if args.azure_api_version:
+        os.environ["AZURE_API_VERSION"] = args.azure_api_version
+    if args.azure_api_base:
+        os.environ["AZURE_API_BASE"] = args.azure_api_base
     if args.openai_api_version:
         os.environ["OPENAI_API_VERSION"] = args.openai_api_version
     if args.openai_api_type:
